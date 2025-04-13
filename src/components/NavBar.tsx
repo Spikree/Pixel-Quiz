@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
+import pixelQuizzLogo from "@/assets/pixelQuizzLogo.png"
 import {
   Menu,
   X,
@@ -11,6 +12,7 @@ import {
   HelpCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -66,9 +68,9 @@ const NavBar = () => {
             initial={{ rotate: 0 }}
             animate={{ rotate: [0, -5, 5, -2, 2, 0] }}
             transition={{ repeat: Infinity, repeatDelay: 5, duration: 0.5 }}
-            className="mr-2"
+            className="mr-2 rounded-lg overflow-hidden w-10 h-10"
           >
-            <div className="w-8 h-8 bg-minecraft-grass border-2 border-pixel-black" />
+            <img className="w-full h-full object-cover rounded-lg" src={pixelQuizzLogo} alt="" />
           </motion.div>
           <span className="font-pixelify text-lg md:text-xl text-pixel-black hidden md:inline">
             Pixel Quiz Quest
@@ -94,14 +96,21 @@ const NavBar = () => {
           ))}
         </div>
 
+        <div className="hidden md:flex items-center space-x-2">
+          <ThemeSwitcher />
+        </div>
+
         {/* Mobile menu button */}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="md:hidden p-2 text-pixel-black"
-          aria-label="Toggle menu"
-        >
-          {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+        <div className="flex items-center space-x-2 md:hidden">
+        <ThemeSwitcher />
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden p-2 text-pixel-black"
+            aria-label="Toggle menu"
+          >
+            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
 
         {/* Mobile menu */}
         {isOpen && (
