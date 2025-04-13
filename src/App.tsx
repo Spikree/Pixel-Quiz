@@ -6,6 +6,12 @@ import { QuizProvider } from "./context/QuizContext";
 import NavBar from "./components/NavBar";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
+import QuizPage from "./pages/QuizPage";
+import LeaderboardPage from "./pages/LeaderboardPage";
+import HowToPlayPage from "./pages/HowToPlayPage";
+import AboutPage from "./pages/AboutPage";
+import SettingsPage from "./pages/SettingsPage";
+import ResultsPage from "./pages/ResultsPage";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +28,12 @@ const App = () => {
               {/* <div className="font-pixelify min-h-screen bg-[url('C:\Users\Avishkar\Desktop\pixel-quiz\src\assets\minecraft.png')] bg-cover bg-center "> */}
               <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/quiz/:categoryId" element={<QuizPage />} />
+                <Route path="/results" element={<ResultsPage />} />
+                <Route path="/leaderboard" element={<LeaderboardPage />} />
+                <Route path="/how-to-play" element={<HowToPlayPage />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/settings" element={<SettingsPage/>} />
               </Routes>
             </div>
           </div>
