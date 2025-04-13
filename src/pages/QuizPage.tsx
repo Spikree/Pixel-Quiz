@@ -25,7 +25,7 @@ const QuizPage = () => {
   const [showFeedback, setShowFeedback] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const [questionStartTime, setQuestionStartTime] = useState(Date.now());
-  const [timeSpent, setTimeSpent] = useState(0);
+//   const [timeSpent, setTimeSpent] = useState(0);
   
   const category = categoryId ? getCategoryById(categoryId) : undefined;
   
@@ -49,7 +49,7 @@ const QuizPage = () => {
     setSelectedOption(optionId);
     const timeSpentMs = Date.now() - questionStartTime;
     const timeSpentSec = Math.min(Math.floor(timeSpentMs / 1000), timePerQuestion);
-    setTimeSpent(timeSpentSec);
+    // setTimeSpent(timeSpentSec);
     
     const selectedAnswerIsCorrect = currentQuestionData.options.find(
       opt => opt.id === optionId

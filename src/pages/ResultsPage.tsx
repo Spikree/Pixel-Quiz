@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useQuiz } from "@/context/QuizContext";
@@ -7,13 +7,13 @@ import PixelatedBox from "@/components/PixelatedBox";
 import PixelButton from "@/components/PixelButton";
 import PixelHeader from "@/components/PixelHeader";
 import { getCategoryById } from "@/data/quiz-data";
-import { Trophy, Clock, CheckSquare, XSquare, Gamepad2, Star, Award, Sparkles, Medal } from "lucide-react";
+import { Trophy, Clock, CheckSquare, Gamepad2, Star, Award, Sparkles, Medal } from "lucide-react";
 import confetti from "@/utils/confetti";
 
 const ResultsPage = () => {
   const navigate = useNavigate();
   const { quizState, playerName, categoryId, leaderboard } = useQuiz();
-  const [showConfetti, setShowConfetti] = useState(false);
+  // const [showConfetti, setShowConfetti] = useState(false);
   
   const category = categoryId ? getCategoryById(categoryId) : undefined;
   const playerScores = leaderboard.filter(score => score.name === playerName);
@@ -31,7 +31,7 @@ const ResultsPage = () => {
   
   useEffect(() => {
     if (latestScore && latestScore.score > 300) {
-      setShowConfetti(true);
+      // setShowConfetti(true);
       confetti.start();
       
       return () => {
@@ -69,7 +69,7 @@ const ResultsPage = () => {
   ) + 1;
   
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-blue-100 to-purple-100">
+    <div className="min-h-screen flex items-center justify-center p-4  mt-20 mb-16">
       <PixelatedBox className="w-full max-w-3xl relative overflow-hidden">
         {/* Decorative elements */}
         <div className="absolute -top-6 -left-6 w-12 h-12 transform rotate-12">
@@ -195,9 +195,16 @@ const ResultsPage = () => {
     </div>
   );
 };
-
 // Score card component
-const ScoreCard = ({ icon, title, value, bgColor, delay = 0 }) => {
+interface ScoreCardProps {
+  icon: React.ReactNode;
+  title: string;
+  value: string;
+  bgColor: string;
+  delay?: number;
+}
+
+const ScoreCard: React.FC<ScoreCardProps> = ({ icon, title, value, bgColor, delay = 0 }) => {
   return (
     <motion.div
       initial={{ opacity: 0, x: -20 }}

@@ -87,7 +87,7 @@ const SettingsPage = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div>
               <div className="mb-6">
-                <label className="block mb-2 font-minecraft text-lg text-pixel-black flex items-center">
+                <label className=" mb-2 font-minecraft text-lg text-pixel-black flex items-center">
                   <User className="w-5 h-5 mr-2" />
                   Default Player Name:
                 </label>
@@ -142,7 +142,7 @@ const SettingsPage = () => {
             
             <div>
               <div className="mb-6">
-                <label className="block mb-2 font-minecraft text-lg text-pixel-black flex items-center">
+                <label className="mb-2 font-minecraft text-lg text-pixel-black flex items-center">
                   <Clock className="w-5 h-5 mr-2" />
                   Quiz Duration:
                 </label>
