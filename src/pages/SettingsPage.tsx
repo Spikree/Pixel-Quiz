@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import PixelatedBox from "@/components/PixelatedBox";
@@ -87,7 +86,7 @@ const SettingsPage = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div>
               <div className="mb-6">
-                <label className=" mb-2 font-minecraft text-lg text-pixel-black flex items-center">
+                <label className="mb-2 font-minecraft text-lg text-pixel-black flex items-center">
                   <User className="w-5 h-5 mr-2" />
                   Default Player Name:
                 </label>
@@ -200,10 +199,11 @@ const SettingsPage = () => {
             </div>
           </div>
           
-          <div className="flex justify-between mt-8">
+          <div className="flex flex-col sm:flex-row sm:justify-end gap-4 mt-8">
             <PixelButton
               onClick={resetSettings}
               variant="danger"
+              className="w-full sm:w-auto"
             >
               <Trash2 className="mr-2 w-5 h-5" />
               Reset All
@@ -211,6 +211,7 @@ const SettingsPage = () => {
             
             <PixelButton
               onClick={saveSettings}
+              className="w-full sm:w-auto"
             >
               <Save className="mr-2 w-5 h-5" />
               Save Settings
