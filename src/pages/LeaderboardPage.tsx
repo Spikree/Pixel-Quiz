@@ -61,7 +61,7 @@ const LeaderboardPage = () => {
             {topScores.length}
           </motion.div>
         </div>
-        <h1 className="text-4xl font-pixel text-pixel-black drop-shadow-md">Leaderboard</h1>
+        <h1 className="sm:text-4xl text-2xl font-pixel text-pixel-black drop-shadow-md">Leaderboard</h1>
         <motion.p 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

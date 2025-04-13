@@ -92,7 +92,7 @@ const Home = () => {
   }
 
   return (
-    <div className="min-h-screen pixel-gradient-bg font-pixelify mt-10 pt-16 pb-8 overflow-x-hidden">
+    <div className="min-h-screen pixel-gradient-bg font-pixelify mt-10 mb-4 pt-16 pb-8 overflow-x-hidden">
       <div className="container mx-auto px-4 sm:px-6 max-w-screen-xl">
         <motion.div
           initial={{ opacity: 0, y: -50 }}
@@ -294,15 +294,6 @@ const Home = () => {
             </PixelatedBox>
           </div>
         </div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          className="text-center mt-6 font-pixelify text-xs sm:text-sm text-pixel-black/70"
-        >
-          <p>© 2025 Pixel Quiz Quest | The Ultimate Knowledge Adventure</p>
-        </motion.div>
       </div>
     </div>
   );

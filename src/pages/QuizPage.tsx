@@ -29,14 +29,12 @@ const QuizPage = () => {
   
   const category = categoryId ? getCategoryById(categoryId) : undefined;
   
-  // Redirect only if quiz hasn't started or category is invalid
   useEffect(() => {
     if (!categoryId || !category) {
       navigate('/');
     }
   }, [categoryId, category, navigate]);
   
-  // Reset timer and state for new questions
   useEffect(() => {
     if (currentQuestionData) {
       setQuestionStartTime(Date.now());
