@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Press+Start+2P&family=VT323&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* From second stylesheet (base colors) */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%; /* Overridden by first stylesheet below */
+    --primary-foreground: 0 0% 98%; /* Overridden by first stylesheet below */
+    --secondary: 0 0% 96.1%; /* Overridden by first stylesheet below */
+    --secondary-foreground: 0 0% 9%; /* Overridden by first stylesheet below */
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%; /* Overridden by first stylesheet below */
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0px; /* Updated from first stylesheet (was 0.5rem) */
+
+    /* From first stylesheet (overriding specific variables) */
+    --primary: 124 40% 35%;
+    --primary-foreground: 355 100% 97%;
+    --secondary: 30 60% 45%;
+    --secondary-foreground: 210 40% 98%;
+    --accent: 240 8% 84%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+  }
+
+  .dark {
+    /* From second stylesheet (unchanged, as first doesn't define dark mode) */
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer components {
+  /* From second stylesheet (retained as they match or supersede first) */
+  .pixel-border {
+    @apply border-4 border-pixel-black relative;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
+    image-rendering: pixelated;
+  }
+
+  .font-pixelify {
+    font-family: 'Pixelify Sans', sans-serif;
+  }
+
+  .pixel-btn {
+    @apply relative inline-flex items-center justify-center px-6 py-3
+           font-pixelify text-lg font-bold tracking-wider
+           transition-transform duration-100 ease-in-out
+           bg-minecraft-grass text-white border-2 border-pixel-black
+           hover:translate-y-[-2px] active:translate-y-[2px] active:shadow-none
+           disabled:opacity-50 disabled:pointer-events-none;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
+    image-rendering: pixelated;
+  }
+
+  .pixel-btn-secondary {
+    @apply pixel-btn bg-minecraft-stone;
+  }
+
+  .pixel-btn-danger {
+    @apply pixel-btn bg-destructive;
+  }
+
+  .pixel-container {
+    @apply bg-white/90 rounded-none border-4 border-pixel-black p-6 shadow-md;
+    box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.2);
+    image-rendering: pixelated;
+  }
+
+  .pixel-input {
+    @apply font-pixelify border-2 border-pixel-black py-2 px-4 bg-white rounded-none;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+    image-rendering: pixelated;
+  }
+
+  .pixelated {
+    image-rendering: pixelated;
+  }
+
+  .pixel-gradient-text {
+    @apply font-pixelify bg-clip-text text-transparent;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  .pixel-card {
+    @apply border-4 border-pixel-black p-4 bg-white/80 relative overflow-hidden
+           hover:transform hover:scale-105 transition-transform duration-200;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.15);
+  }
+
+  .pixel-badge {
+    @apply inline-block px-3 py-1 rounded-full text-sm font-pixelify
+           border-2 border-pixel-black;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
