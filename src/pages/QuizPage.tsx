@@ -19,7 +19,6 @@ const QuizPage = () => {
     submitAnswer,
     endQuiz,
     timePerQuestion,
-    isQuizActive,
   } = useQuiz();
 
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
