@@ -7,6 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/components/ui/use-toast";
 import { Save, Trash2, Volume2, User, Palette, Clock, Zap } from "lucide-react";
+import { useQuiz } from "@/context/QuizContext";
+import audioManager from "@/utils/audio";
 
 const SettingsPage = () => {
   const [playerName, setPlayerName] = useState("");
@@ -15,6 +17,7 @@ const SettingsPage = () => {
   const [highContrastMode, setHighContrastMode] = useState(false);
   const [quizDuration, setQuizDuration] = useState<"normal" | "extended" | "quick">("normal");
   const { toast } = useToast();
+  const { updateTimePerQuestion } = useQuiz();
   
   useEffect(() => {
     // Load settings from localStorage
@@ -38,6 +41,18 @@ const SettingsPage = () => {
     localStorage.setItem("pixelQuizAnimations", animationsEnabled.toString());
     localStorage.setItem("pixelQuizHighContrast", highContrastMode.toString());
     localStorage.setItem("pixelQuizDuration", quizDuration);
+
+    // Apply the settings
+    audioManager.setSoundEnabled(soundEnabled);
+
+    // Update quiz duration in the context
+    if (quizDuration === "quick") {
+      updateTimePerQuestion(20);
+    } else if (quizDuration === "normal") {
+      updateTimePerQuestion(30);
+    } else if (quizDuration === "extended") {
+      updateTimePerQuestion(45);
+    }
     
     toast({
       title: "Settings saved",
@@ -59,10 +74,18 @@ const SettingsPage = () => {
     localStorage.removeItem("pixelQuizHighContrast");
     localStorage.removeItem("pixelQuizDuration");
     
+    // Apply default settings
+    audioManager.setSoundEnabled(true);
+    updateTimePerQuestion(30);
+    
     toast({
       title: "Settings reset",
       description: "All settings have been reset to default."
     });
+  };
+
+  const handleButtonClickSound = () => {
+    audioManager.playButtonClick();
   };
 
   return (
@@ -93,7 +116,7 @@ const SettingsPage = () => {
                 <Input
                   type="text"
                   value={playerName}
-                  onChange={(e) => setPlayerName(e.target.value)}
+                  onChange={(e) => {setPlayerName(e.target.value);handleButtonClickSound()}}
                   placeholder="Your gaming nickname"
                   className="pixel-input w-full"
                   maxLength={15}
@@ -111,7 +134,7 @@ const SettingsPage = () => {
                   </label>
                   <Switch 
                     checked={soundEnabled}
-                    onCheckedChange={setSoundEnabled}
+                    onCheckedChange={(value) => {setSoundEnabled(value);handleButtonClickSound()}}
                   />
                 </div>
                 
@@ -122,7 +145,7 @@ const SettingsPage = () => {
                   </label>
                   <Switch 
                     checked={animationsEnabled}
-                    onCheckedChange={setAnimationsEnabled}
+                    onCheckedChange={(value) => {setAnimationsEnabled(value);handleButtonClickSound()}}
                   />
                 </div>
                 
@@ -133,7 +156,7 @@ const SettingsPage = () => {
                   </label>
                   <Switch 
                     checked={highContrastMode}
-                    onCheckedChange={setHighContrastMode}
+                    onCheckedChange={(value) => {setHighContrastMode(value);handleButtonClickSound()}}
                   />
                 </div>
               </div>
@@ -153,7 +176,7 @@ const SettingsPage = () => {
                         ? "border-minecraft-grass bg-minecraft-grass/20"
                         : "border-pixel-black hover:bg-accent/10"
                     }`}
-                    onClick={() => setQuizDuration("quick")}
+                    onClick={() => {setQuizDuration("quick");handleButtonClickSound()}}
                   >
                     Quick
                   </button>
@@ -163,7 +186,7 @@ const SettingsPage = () => {
                         ? "border-minecraft-grass bg-minecraft-grass/20"
                         : "border-pixel-black hover:bg-accent/10"
                     }`}
-                    onClick={() => setQuizDuration("normal")}
+                    onClick={() => {setQuizDuration("normal");handleButtonClickSound()}}
                   >
                     Normal
                   </button>
@@ -173,7 +196,7 @@ const SettingsPage = () => {
                         ? "border-minecraft-grass bg-minecraft-grass/20"
                         : "border-pixel-black hover:bg-accent/10"
                     }`}
-                    onClick={() => setQuizDuration("extended")}
+                    onClick={() => {setQuizDuration("extended");;handleButtonClickSound()}}
                   >
                     Extended
                   </button>
@@ -201,7 +224,7 @@ const SettingsPage = () => {
           
           <div className="flex flex-col sm:flex-row sm:justify-end gap-4 mt-8">
             <PixelButton
-              onClick={resetSettings}
+              onClick={() => {resetSettings(); handleButtonClickSound()}}
               variant="danger"
               className="w-full sm:w-auto"
             >
@@ -210,7 +233,7 @@ const SettingsPage = () => {
             </PixelButton>
             
             <PixelButton
-              onClick={saveSettings}
+              onClick={() => {saveSettings();handleButtonClickSound()}}
               className="w-full sm:w-auto"
             >
               <Save className="mr-2 w-5 h-5" />

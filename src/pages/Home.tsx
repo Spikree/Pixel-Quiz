@@ -9,22 +9,31 @@ import PixelHeader from "@/components/PixelHeader";
 import { Input } from "@/components/ui/input";
 import { Gamepad2, Award, Clock, ArrowRight, Star, Brain, Zap, Trophy, HelpCircle } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import audioManager from "@/utils/audio";
 // import confetti from "@/utils/confetti";
 // import minecraftCelebration from "@/utils/minecraftCelebration";
 
 const Home = () => {
   const [playerName, setPlayerName] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [showWelcome, setShowWelcome] = useState(true);
+  const [showWelcome, setShowWelcome] = useState(false);
   const { startQuiz, getLeaderboard } = useQuiz();
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowWelcome(false);
-    }, 2000);
-    return () => clearTimeout(timer);
+   // Display a welcome animation on first load only if it's never been shown
+   useEffect(() => {
+    const hasSeenWelcome = localStorage.getItem("pixelQuizWelcomeSeen");
+    
+    if (!hasSeenWelcome) {
+      setShowWelcome(true);
+      const timer = setTimeout(() => {
+        setShowWelcome(false);
+        localStorage.setItem("pixelQuizWelcomeSeen", "true");
+      }, 2000);
+      
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   useEffect(() => {
@@ -53,7 +62,7 @@ const Home = () => {
       return;
     }
 
-    // localStorage.setItem("pixelQuizPlayerName", playerName);
+    localStorage.setItem("pixelQuizPlayerName", playerName);
     // minecraftCelebration.start();
     // setTimeout(() => {
     //   minecraftCelebration.stop();
@@ -65,32 +74,44 @@ const Home = () => {
 
   const topScores = getLeaderboard().slice(0, 3);
 
+  // Welcome animation
   if (showWelcome) {
     return (
-      <div className="min-h-screen pixel-gradient-bg font-pixelify flex items-center justify-center overflow-x-hidden">
+      <div className="min-h-screen flex items-center justify-center">
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: [0, 1.2, 1] }}
           transition={{ duration: 1.5, ease: "easeInOut" }}
-          className="text-center px-4"
+          className="text-center"
         >
-          <h1 className="text-4xl sm:text-5xl font-press-start font-bold text-pixel-black mb-4">
-            Pixel Quiz <span className="text-minecraft-grass">Quest</span>
+          <h1 className="text-5xl font-pixel text-pixel-black mb-4">
+            <span className="text-minecraft-grass">P</span>
+            <span className="text-minecraft-dirt">i</span>
+            <span className="text-pixel-blue">x</span>
+            <span className="text-minecraft-grass">e</span>
+            <span className="text-minecraft-wood">l</span>
+            <span> </span>
+            <span className="text-minecraft-water">Q</span>
+            <span className="text-minecraft-leaves">u</span>
+            <span className="text-minecraft-dirt">i</span>
+            <span className="text-pixel-black">z</span>
           </h1>
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8 }}
           >
-            <p className="font-vt323 text-pixel-brown text-lg sm:text-xl">
-              Loading adventure...
-            </p>
+            <p className="font-minecraft text-pixel-brown text-xl">Loading adventure...</p>
           </motion.div>
         </motion.div>
       </div>
     );
   }
 
+  const handleButtonClickSound = () => {
+    audioManager.playButtonClick();
+  }
+  
   return (
     <div className="min-h-screen pixel-gradient-bg font-pixelify mt-10 mb-4 pt-16 pb-8 overflow-x-hidden">
       <div className="container mx-auto px-4 sm:px-6 max-w-screen-xl">
@@ -127,7 +148,7 @@ const Home = () => {
                 <Input
                   type="text"
                   value={playerName}
-                  onChange={(e) => setPlayerName(e.target.value)}
+                  onChange={(e) => {setPlayerName(e.target.value);handleButtonClickSound()}}
                   placeholder="Your gaming nickname"
                   className="pixel-input w-full font-pixelify text-base py-2 sm:py-3"
                   maxLength={15}
@@ -151,7 +172,7 @@ const Home = () => {
                           ? "border-minecraft-grass bg-minecraft-grass/20"
                           : "border-pixel-black"
                       } hover:border-minecraft-grass transition-colors`}
-                      onClick={() => setSelectedCategory(category.id)}
+                      onClick={() => {setSelectedCategory(category.id);handleButtonClickSound()}}
                     >
                       <div className="flex justify-between items-start mb-2">
                         <Gamepad2 className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -188,14 +209,14 @@ const Home = () => {
 
               <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mt-4 sm:mt-6">
                 <PixelButton
-                  onClick={handleStartQuiz}
+                  onClick={() => {handleStartQuiz();handleButtonClickSound()}}
                   className="font-pixelify px-4 py-2 text-base sm:px-6 sm:py-3 sm:text-lg"
                 >
                   <Zap className="mr-2 w-4 h-4 sm:w-5 sm:h-5" />
                   Start Quest!
                 </PixelButton>
                 <PixelButton
-                  onClick={() => navigate('/leaderboard')}
+                  onClick={() => {navigate('/leaderboard');handleButtonClickSound();}}
                   variant="secondary"
                   className="font-pixelify px-4 py-2 text-base sm:px-6 sm:py-3 sm:text-lg"
                 >
@@ -245,7 +266,7 @@ const Home = () => {
                   ))}
                   <div className="text-center mt-4">
                     <PixelButton
-                      onClick={() => navigate('/leaderboard')}
+                      onClick={() => {navigate('/leaderboard');handleButtonClickSound();}}
                       variant="secondary"
                       className="text-xs sm:text-sm w-full font-pixelify px-4 py-2 sm:px-6 sm:py-3"
                     >
@@ -283,7 +304,7 @@ const Home = () => {
               </ul>
               <div className="mt-4 text-center">
                 <PixelButton
-                  onClick={() => navigate('/how-to-play')}
+                  onClick={() => {navigate('/how-to-play');handleButtonClickSound()}}
                   variant="secondary"
                   className="text-xs sm:text-sm w-full font-pixelify px-4 py-2 sm:px-6 sm:py-3"
                 >

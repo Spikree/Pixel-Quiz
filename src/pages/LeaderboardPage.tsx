@@ -6,6 +6,7 @@ import PixelatedBox from "@/components/PixelatedBox";
 import PixelButton from "@/components/PixelButton";
 import { categories } from "@/data/quiz-data";
 import { Trophy, Medal, Clock, Check, Crown, Award, User, Home, Filter } from "lucide-react";
+import audioManager from "@/utils/audio";
 
 const LeaderboardPage = () => {
   const navigate = useNavigate();
@@ -29,6 +30,10 @@ const LeaderboardPage = () => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  const handleButtonClickSound = () => {
+    audioManager.playButtonClick();
   };
 
 
@@ -76,7 +81,7 @@ const LeaderboardPage = () => {
         {/* Mobile Filter Toggle */}
         <div className="md:hidden mb-4 w-full">
           <PixelButton 
-            onClick={() => setShowFilters(!showFilters)}
+            onClick={() => {setShowFilters(!showFilters);handleButtonClickSound()}}
             className="w-full flex items-center justify-center"
           >
             <Filter className="w-4 h-4 mr-2" />
@@ -95,7 +100,7 @@ const LeaderboardPage = () => {
             >
               <div className="flex flex-wrap justify-center gap-2 p-2 bg-white/70 rounded-lg shadow-inner">
                 <button
-                  onClick={() => setSelectedCategory('all')}
+                  onClick={() => {setSelectedCategory('all');handleButtonClickSound()}}
                   className={`px-4 py-2 font-minecraft text-sm border-2 rounded transition-all ${
                     selectedCategory === 'all'
                       ? 'border-minecraft-grass bg-minecraft-grass/20 text-pixel-black shadow-md transform scale-105'
@@ -108,7 +113,7 @@ const LeaderboardPage = () => {
                 {categories.map((category) => (
                   <button
                     key={category.id}
-                    onClick={() => setSelectedCategory(category.id)}
+                    onClick={() => {setSelectedCategory(category.id);handleButtonClickSound()}}
                     className={`px-4 py-2 font-minecraft text-sm border-2 rounded transition-all ${
                       selectedCategory === category.id
                         ? 'border-minecraft-grass bg-minecraft-grass/20 text-pixel-black shadow-md transform scale-105'
@@ -235,7 +240,7 @@ const LeaderboardPage = () => {
                 <Trophy className="w-12 h-12 mx-auto mb-4 text-gray-300" />
                 <p className="font-minecraft text-lg mb-4">No scores yet for this category!</p>
                 <p className="text-sm text-pixel-brown mb-6">Be the first to set a high score!</p>
-                <PixelButton onClick={() => navigate('/quiz')}>
+                <PixelButton onClick={() => {navigate('/quiz');handleButtonClickSound()}}>
                   Play Now
                 </PixelButton>
               </div>
@@ -244,7 +249,7 @@ const LeaderboardPage = () => {
           
           <div className="mt-8 text-center">
             <PixelButton 
-              onClick={() => navigate('/')}
+              onClick={() => {navigate('/');handleButtonClickSound()}}
               className="flex items-center justify-center"
             >
               <Home className="w-4 h-4 mr-2" />

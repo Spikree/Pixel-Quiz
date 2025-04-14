@@ -4,6 +4,7 @@ import PixelatedBox from "@/components/PixelatedBox";
 import PixelButton from "@/components/PixelButton";
 import PixelHeader from "@/components/PixelHeader";
 import { Clock, CheckCircle, XCircle, Brain, Star, Award, ArrowRight } from "lucide-react";
+import audioManager from "@/utils/audio";
 
 const HowToPlayPage = () => {
   const navigate = useNavigate();
@@ -75,6 +76,10 @@ const HowToPlayPage = () => {
     }
   ];
 
+  const handleButtonClickSound = () => {
+    audioManager.playButtonClick();
+  };
+
   return (
     <div className="min-h-screen pt-20 pb-10">
       <div className="container mx-auto px-4">
@@ -119,7 +124,7 @@ const HowToPlayPage = () => {
               
               <div className="flex justify-center mt-8">
                 <PixelButton 
-                  onClick={() => navigate('/')}
+                  onClick={() => {navigate('/');handleButtonClickSound()}}
                   className="mx-2"
                 >
                   Ready to Play!
@@ -183,7 +188,7 @@ const HowToPlayPage = () => {
                 </p>
                 
                 <PixelButton
-                  onClick={() => navigate('/')}
+                  onClick={() => {navigate('/');handleButtonClickSound()}}
                   className="mx-auto"
                 >
                   Start a Quiz <ArrowRight className="ml-2" />

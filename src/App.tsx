@@ -14,6 +14,8 @@ import SettingsPage from "./pages/SettingsPage";
 import ResultsPage from "./pages/ResultsPage";
 import QuickActions from "./components/QuickActions";
 import Footer from "./components/Footer";
+import SignupPage from "./pages/SignupPage";
+import LoginPage from "./pages/LoginPage";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +38,8 @@ const App = () => {
                 <Route path="/how-to-play" element={<HowToPlayPage />} />
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/settings" element={<SettingsPage />} />
+                <Route path="/signup" element={<SignupPage />} />
+                <Route path="/login" element={<LoginPage/>} />
               </Routes>
             </div>
             <div className="block md:hidden">

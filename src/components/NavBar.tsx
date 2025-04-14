@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import pixelQuizzLogo from "@/assets/pixelQuizzLogo.png"
+import pixelQuizzLogo from "@/assets/pixelQuizzLogo.png";
 import {
   Menu,
   X,
@@ -10,9 +10,12 @@ import {
   Info,
   Settings,
   HelpCircle,
+  LogIn,
+  UserPlus,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ThemeSwitcher from "./ThemeSwitcher";
+import audioManager from "@/utils/audio";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -55,6 +58,11 @@ const NavBar = () => {
     return location.pathname === path;
   };
 
+  const handleNavLinkClick = () => {
+    audioManager.playButtonClick();
+    setIsOpen(false);
+  };
+
   return (
     <nav
       className={cn(
@@ -70,9 +78,13 @@ const NavBar = () => {
             transition={{ repeat: Infinity, repeatDelay: 5, duration: 0.5 }}
             className="mr-2 rounded-lg overflow-hidden w-10 h-10"
           >
-            <img className="w-full h-full object-cover rounded-lg" src={pixelQuizzLogo} alt="" />
+            <img
+              className="w-full h-full object-cover rounded-lg"
+              src={pixelQuizzLogo}
+              alt=""
+            />
           </motion.div>
-          <span className="font-pixelify text-lg md:text-xl text-pixel-black hidden md:inline">
+          <span onClick={handleNavLinkClick} className="font-pixelify text-lg md:text-xl text-pixel-black hidden md:inline">
             Pixel Quiz Quest
           </span>
         </Link>
@@ -83,6 +95,7 @@ const NavBar = () => {
             <Link
               key={item.path}
               to={item.path}
+              onClick={handleNavLinkClick}
               className={cn(
                 "flex items-center px-3 py-2 font-pixelfy transition-all",
                 isActive(item.path)
@@ -96,15 +109,37 @@ const NavBar = () => {
           ))}
         </div>
 
-        <div className="hidden md:flex items-center space-x-2">
-          <ThemeSwitcher />
+        {/* Authentication links for desktop */}
+        <div className="hidden md:flex items-center">
+          <Link
+            to="/login"
+            className="flex items-center px-3 py-2 font-minecraft text-pixel-black/70 hover:text-pixel-black"
+            onClick={handleNavLinkClick}
+          >
+            <LogIn className="w-5 h-5 mr-1" />
+            <span>Login</span>
+          </Link>
+          <Link
+            to="/signup"
+            className="flex items-center px-3 py-2 ml-2 font-minecraft bg-minecraft-grass text-white rounded hover:bg-minecraft-grass/90"
+            onClick={handleNavLinkClick}
+          >
+            <UserPlus className="w-5 h-5 mr-1" />
+            <span>Sign Up</span>
+          </Link>
+          <div className="ml-4 flex items-center space-x-2">
+            <ThemeSwitcher />
+          </div>
         </div>
 
         {/* Mobile menu button */}
         <div className="flex items-center space-x-2 md:hidden">
-        <ThemeSwitcher />
+          <ThemeSwitcher />
           <button
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={() => {
+              audioManager.playButtonClick();
+              setIsOpen(!isOpen);
+            }}
             className="md:hidden p-2 text-pixel-black"
             aria-label="Toggle menu"
           >
@@ -131,13 +166,29 @@ const NavBar = () => {
                       ? "bg-minecraft-grass/20 text-pixel-black border-l-4 border-minecraft-grass"
                       : "text-pixel-black/70 hover:text-pixel-black hover:bg-accent/20"
                   )}
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => {setIsOpen(false);handleNavLinkClick()}}
                 >
                   {item.icon}
                   <span className="ml-2">{item.name}</span>
                 </Link>
               ))}
             </div>
+            <Link
+              to="/login"
+              className="flex items-center px-4 py-3 font-minecraft text-pixel-black/70 hover:text-pixel-black hover:bg-accent/20"
+              onClick={handleNavLinkClick}
+            >
+              <LogIn className="w-5 h-5 mr-2" />
+              <span>Login</span>
+            </Link>
+            <Link
+              to="/signup"
+              className="flex items-center px-4 py-3 font-minecraft text-pixel-black/70 hover:text-pixel-black hover:bg-accent/20"
+              onClick={handleNavLinkClick}
+            >
+              <UserPlus className="w-5 h-5 mr-2" />
+              <span>Sign Up</span>
+            </Link>
           </motion.div>
         )}
       </div>
