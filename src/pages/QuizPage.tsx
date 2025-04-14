@@ -30,13 +30,6 @@ const QuizPage = () => {
 
   const category = categoryId ? getCategoryById(categoryId) : undefined;
 
-  // Redirect if no active quiz
-  useEffect(() => {
-    if (!isQuizActive || !categoryId) {
-      navigate("/");
-    }
-  }, [isQuizActive, categoryId, navigate]);
-
   // Reset timer when new question loads
   useEffect(() => {
     if (currentQuestionData) {
@@ -44,7 +37,7 @@ const QuizPage = () => {
       setSelectedOption(null);
       setShowFeedback(false);
     }
-  }, [currentQuestionData?.id]);
+  }, [currentQuestionData]);
 
   const handleSelectOption = (optionId: string) => {
     if (selectedOption || !currentQuestionData) return;

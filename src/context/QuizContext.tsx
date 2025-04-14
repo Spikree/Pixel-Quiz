@@ -148,7 +148,7 @@ export const QuizProvider = ({ children }: { children: ReactNode }) => {
       categoryId,
       date: new Date(),
     };
-
+    
     addToLeaderboard(newScore);
     setIsQuizActive(false);
     navigate("/results");
