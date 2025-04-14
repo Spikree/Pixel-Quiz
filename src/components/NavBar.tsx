@@ -84,13 +84,13 @@ const NavBar = () => {
               alt=""
             />
           </motion.div>
-          <span onClick={handleNavLinkClick} className="font-pixelify text-lg md:text-xl text-pixel-black hidden md:inline">
+          {/* <span onClick={handleNavLinkClick} className="font-pixelify text-lg md:text-xl text-pixel-black hidden  lg:inline">
             Pixel Quiz Quest
-          </span>
+          </span> */}
         </Link>
 
         {/* Desktop menu */}
-        <div className="hidden md:flex items-center space-x-2 font-pixelify">
+        <div className="hidden lg:flex items-center space-x-2 font-pixelify">
           {navItems.map((item) => (
             <Link
               key={item.path}
@@ -110,7 +110,7 @@ const NavBar = () => {
         </div>
 
         {/* Authentication links for desktop */}
-        <div className="hidden md:flex items-center">
+        <div className="hidden lg:flex items-center">
           <Link
             to="/login"
             className="flex items-center px-3 py-2 font-minecraft text-pixel-black/70 hover:text-pixel-black"
@@ -133,14 +133,14 @@ const NavBar = () => {
         </div>
 
         {/* Mobile menu button */}
-        <div className="flex items-center space-x-2 md:hidden">
+        <div className="flex items-center space-x-2 lg:hidden">
           <ThemeSwitcher />
           <button
             onClick={() => {
               audioManager.playButtonClick();
               setIsOpen(!isOpen);
             }}
-            className="md:hidden p-2 text-pixel-black"
+            className="lg:hidden p-2 text-pixel-black"
             aria-label="Toggle menu"
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -153,7 +153,7 @@ const NavBar = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full right-0 left-0 pixel-container md:hidden py-2 mt-2 mx-4"
+            className="absolute top-full right-0 left-0 pixel-container lg:hidden py-2 mt-2 mx-4"
           >
             <div className="flex flex-col">
               {navItems.map((item) => (

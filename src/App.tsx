@@ -87,7 +87,7 @@ const App = () => {
                 <Route path="/login" element={<LoginPage/>} />
               </Routes>
             </div>
-            <div className="block md:hidden">
+            <div className="block lg:hidden">
               <QuickActions />
             </div>
             <Footer/>
