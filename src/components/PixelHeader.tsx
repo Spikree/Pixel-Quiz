@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import React, { JSX } from "react";
+import { useContext } from "react";
+import { AnimationContext } from "@/context/StateContext";
 
 interface PixelHeaderProps {
   children: React.ReactNode;
@@ -17,12 +19,14 @@ const PixelHeader = ({ children, className, level = 1 }: PixelHeaderProps) => {
   };
 
   const Component = `h${level}` as keyof JSX.IntrinsicElements;
+  const { animationsEnabled } = useContext(AnimationContext);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
+    initial={animationsEnabled ? { opacity: 0, y: -20 } : false}
+    animate={animationsEnabled ? { opacity: 1, y: 0 } : false}
       transition={{ duration: 0.5 }}
+      className={!animationsEnabled ? 'framer-motion-disabled' : ''}
     >
       {React.createElement(
         Component as React.ElementType,

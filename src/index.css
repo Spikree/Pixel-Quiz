@@ -143,3 +143,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+.no-animations .framer-motion-disabled {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+}

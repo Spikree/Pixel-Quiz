@@ -17,7 +17,7 @@ const Home = () => {
   const [playerName, setPlayerName] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [showWelcome, setShowWelcome] = useState(false);
-  const { startQuiz, getLeaderboard } = useQuiz();
+  const { startQuiz, getLeaderboard, timePerQuestion } = useQuiz();
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -199,7 +199,7 @@ const Home = () => {
                         </div>
                         <div className="flex items-center">
                           <Clock className="w-3 h-3 sm:w-4 sm:h-4 mr-1" />
-                          <span>30s/Q</span>
+                          <span>{timePerQuestion} per question</span>
                         </div>
                       </div>
                     </motion.div>

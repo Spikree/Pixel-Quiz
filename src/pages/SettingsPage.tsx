@@ -12,7 +12,7 @@ import audioManager from "@/utils/audio";
 
 const SettingsPage = () => {
   const [playerName, setPlayerName] = useState("");
-  const [soundEnabled, setSoundEnabled] = useState(true);
+  const [soundEnabled, setSoundEnabled] = useState(false);
   const [animationsEnabled, setAnimationsEnabled] = useState(true);
   const [highContrastMode, setHighContrastMode] = useState(false);
   const [quizDuration, setQuizDuration] = useState<"normal" | "extended" | "quick">("normal");
