@@ -26,6 +26,9 @@ class AudioManager {
     this.sounds = {
       buttonClick: new Audio("/assets/buttonclick.mp3"),
       pageTransition: new Audio("/assets/Enter & Back.mp3"),
+      wrongAnswer: new Audio("/assets/wrongAnswer.mp3"),
+      correctAnswer: new Audio("/assets/correctAnswer.mp3"),
+      quizFinish: new Audio("/assets/quizFinish.mp3")
     };
 
     // Preload sounds
@@ -46,6 +49,18 @@ class AudioManager {
 
   public playPageTransition(): void {
     this.playSound("pageTransition");
+  }
+
+  public playWrongAnswer(): void {
+    this.playSound("wrongAnswer");
+  }
+
+  public playCorrectAnswer(): void {
+    this.playSound("correctAnswer");
+  }
+
+  public playQuizFinish() : void {
+    this.playSound("quizFinish");
   }
 
   private playSound(soundName: keyof typeof this.sounds): void {

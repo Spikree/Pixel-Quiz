@@ -9,6 +9,7 @@ import Timer from "@/components/Timer";
 import ProgressBar from "@/components/ProgressBar";
 import { getCategoryById } from "@/data/quiz-data";
 import { CheckCircle2, XCircle } from "lucide-react";
+import audioManager from "@/utils/audio";
 
 const QuizPage = () => {
   const { categoryId } = useParams<{ categoryId: string }>();
@@ -53,6 +54,12 @@ const QuizPage = () => {
       (opt) => opt.id === optionId
     )?.isCorrect;
 
+    if (selectedAnswerIsCorrect) {
+      audioManager.playCorrectAnswer();
+    } else {
+      audioManager.playWrongAnswer();
+    }
+
     setIsCorrect(!!selectedAnswerIsCorrect);
     setShowFeedback(true);
 
@@ -76,6 +83,7 @@ const QuizPage = () => {
       setSelectedOption(wrongOption.id);
       setIsCorrect(false);
       setShowFeedback(true);
+      audioManager.playWrongAnswer();
 
       setTimeout(() => {
         if (currentQuestionData) {

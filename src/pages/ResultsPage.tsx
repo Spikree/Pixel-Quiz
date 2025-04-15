@@ -9,6 +9,7 @@ import PixelHeader from "@/components/PixelHeader";
 import { getCategoryById } from "@/data/quiz-data";
 import { Trophy, Clock, CheckSquare, Gamepad2, Star, Award, Sparkles, Medal } from "lucide-react";
 import confetti from "@/utils/confetti";
+import audioManager from "@/utils/audio";
 
 const ResultsPage = () => {
   const navigate = useNavigate();
@@ -33,6 +34,7 @@ const ResultsPage = () => {
     if (latestScore && latestScore.score > 300) {
       // setShowConfetti(true);
       confetti.start();
+      audioManager.playQuizFinish();
       
       return () => {
         confetti.stop();
