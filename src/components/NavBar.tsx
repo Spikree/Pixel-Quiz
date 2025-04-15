@@ -84,9 +84,9 @@ const NavBar = () => {
               alt=""
             />
           </motion.div>
-          {/* <span onClick={handleNavLinkClick} className="font-pixelify text-lg md:text-xl text-pixel-black hidden  lg:inline">
+          <span onClick={handleNavLinkClick} className="font-pixelify text-lg md:text-xl text-pixel-black hidden  lg:inline">
             Pixel Quiz Quest
-          </span> */}
+          </span>
         </Link>
 
         {/* Desktop menu */}
