@@ -83,7 +83,7 @@ const AboutPage = () => {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: feature.delay }}
-                      className="border-2 border-pixel-black p-4 bg-white/80"
+                      className="border-2 border-pixel-black p-4 cursor-pointer bg-white/80"
                     >
                       <div className="flex items-center mb-2">
                         {feature.icon}

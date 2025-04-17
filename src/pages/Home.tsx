@@ -240,7 +240,7 @@ const Home = () => {
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.1 }}
-                      className="flex items-center p-3 border-2 border-pixel-black bg-white/50"
+                      className="flex items-center p-3 border-2 cursor-pointer border-pixel-black bg-white/50"
                     >
                       <div className="flex items-center justify-center w-8 h-8 mr-3">
                         {index === 0 ? (
