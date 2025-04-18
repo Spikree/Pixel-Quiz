@@ -19,6 +19,7 @@ import LoginPage from "./pages/LoginPage";
 import audioManager from "./utils/audio";
 import {  useEffect, useState } from "react";
 import { AnimationContext } from "./context/StateContext";
+import NotFound from "./pages/NotFound";
 
 
 const queryClient = new QueryClient();
@@ -49,13 +50,11 @@ const App = () => {
     
     window.addEventListener('storage', handleStorageChange);
     
-    // Also check for local changes
     const checkAnimationSetting = () => {
       const setting = localStorage.getItem("pixelQuizAnimations");
       setAnimationsEnabled(setting !== "false");
     };
     
-    // Check every second for changes (simple approach)
     const interval = setInterval(checkAnimationSetting, 1000);
     
     return () => {
@@ -74,7 +73,6 @@ const App = () => {
             <RouteChangeHandler/>
             <NavBar />
             <div className="min-h-screen bg-[radial-gradient(#4caf50_1px,transparent_1px)] bg-[size:10px_10px] font-pixelify ">
-              {/* <div className="font-pixelify min-h-screen bg-[url('C:\Users\Avishkar\Desktop\pixel-quiz\src\assets\minecraft.png')] bg-cover bg-center "> */}
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/quiz/:categoryId" element={<QuizPage />} />
@@ -85,6 +83,7 @@ const App = () => {
                 <Route path="/settings" element={<SettingsPage />} />
                 <Route path="/signup" element={<SignupPage />} />
                 <Route path="/login" element={<LoginPage/>} />
+                <Route path="*" element={<NotFound/>} />
               </Routes>
             </div>
             <div className="block lg:hidden">
